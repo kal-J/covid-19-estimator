@@ -36,15 +36,15 @@ const calculateImpact = (
   const currentlyInfected = reportedCases * reportedCasesMultiplyer;
   const infectionsByRequestedTime = currentlyInfected * (2 ** Math.trunc(days / 3));
   const severeCasesByRequestedTime = Math.trunc(
-    (15 / 100) * infectionsByRequestedTime
+    0.15 * infectionsByRequestedTime
   );
-  const availableBeds = (35 / 100) * totalHospitalBeds;
+  const availableBeds = 0.35 * totalHospitalBeds;
   const hospitalBedsByRequestedTime = Math.trunc(availableBeds - severeCasesByRequestedTime);
   const casesForICUByRequestedTime = Math.trunc(
-    (5 / 100) * infectionsByRequestedTime
+    0.05 * infectionsByRequestedTime
   );
   const casesForVentilatorsByRequestedTime = Math.trunc(
-    (2 / 100) * infectionsByRequestedTime
+    0.02 * infectionsByRequestedTime
   );
   const dollarsInFlight = Math.trunc(infectionsByRequestedTime
     * avgDailyIncomePopulation
