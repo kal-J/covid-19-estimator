@@ -1,28 +1,27 @@
 /** const input_data = {
-  region: {
-    name: 'africa',
-    avgAge: 19.7,
-    avgDailyIncomeInUSD: 6.7,
-    avgDailyIncomePopulation: 0.41
-  },
-  periodType: 'weeks',
-  timeToElapse: 2,
-  reportedCases: 674,
-  population: 66622705,
-  totalHospitalBeds: 1380614
-}; */
+    region: {
+        name: "africa",
+        avgAge: 19.7,
+        avgDailyIncomeInUSD: 5,
+        avgDailyIncomePopulation: 0.71,
+    },
+    periodType: "days",
+    timeToElapse: 58,
+    reportedCases: 674,
+    population: 66622705,
+    totalHospitalBeds: 1380614
+} */
 
 const normaliseDurationInputToDays = (timeToElapse, type) => {
-  const input = timeToElapse;
   switch (type) {
     case 'days':
-      return input;
+      return timeToElapse;
     case 'weeks':
-      return input * 7;
+      return timeToElapse * 7;
     case 'months':
-      return input * 30; // we are assuming 1month = 30days
+      return timeToElapse * 30; // we are assuming 1month = 30days
     default:
-      return 0;
+      return timeToElapse;
   }
 };
 
@@ -36,15 +35,21 @@ const calculateImpact = (
 ) => {
   const currentlyInfected = reportedCases * reportedCasesMultiplyer;
   const infectionsByRequestedTime = currentlyInfected * (2 ** Math.floor(days / 3));
-  const severeCasesByRequestedTime = Math.floor(15 / 100) * infectionsByRequestedTime;
-  const availableBeds = Math.floor(35 / 100) * totalHospitalBeds;
+  const severeCasesByRequestedTime = Math.trunc(
+    (15 / 100) * infectionsByRequestedTime
+  );
+  const availableBeds = Math.trunc((35 / 100) * totalHospitalBeds);
   const hospitalBedsByRequestedTime = availableBeds - severeCasesByRequestedTime;
-  const casesForICUByRequestedTime = Math.floor(5 / 100) * infectionsByRequestedTime;
-  const casesForVentilatorsByRequestedTime = Math.floor(2 / 100) * infectionsByRequestedTime;
-  const dollarsInFlight = infectionsByRequestedTime
+  const casesForICUByRequestedTime = Math.trunc(
+    (5 / 100) * infectionsByRequestedTime
+  );
+  const casesForVentilatorsByRequestedTime = Math.trunc(
+    (2 / 100) * infectionsByRequestedTime
+  );
+  const dollarsInFlight = Math.trunc(infectionsByRequestedTime
     * avgDailyIncomePopulation
     * avgDailyIncomeInUSD
-    * days;
+    * days);
 
   const result = {
     currentlyInfected,
@@ -93,4 +98,5 @@ const covid19ImpactEstimator = (data) => {
 
   return estimate;
 };
+
 export default covid19ImpactEstimator;
