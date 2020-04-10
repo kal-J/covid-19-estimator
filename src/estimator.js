@@ -35,7 +35,7 @@ const calculateImpact = (
   avgDailyIncomeInUSD
 ) => {
   const currentlyInfected = reportedCases * reportedCasesMultiplyer;
-  const infectionsByRequestedTime = currentlyInfected * (2 ** Math.floor(days / 3));
+  const infectionsByRequestedTime = currentlyInfected * (2 ** Math.ceil(days / 3));
   const severeCasesByRequestedTime = (15 / 100) * infectionsByRequestedTime;
   const hospitalBedsByRequestedTime = (35 / 100) * (totalHospitalBeds - severeCasesByRequestedTime);
   const casesForICUByRequestedTime = (5 / 100) * infectionsByRequestedTime;
