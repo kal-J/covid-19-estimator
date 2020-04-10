@@ -38,8 +38,8 @@ const calculateImpact = (
   const severeCasesByRequestedTime = Math.trunc(
     (15 / 100) * infectionsByRequestedTime
   );
-  const availableBeds = Math.trunc((35 / 100) * totalHospitalBeds);
-  const hospitalBedsByRequestedTime = availableBeds - severeCasesByRequestedTime;
+  const availableBeds = (35 / 100) * totalHospitalBeds;
+  const hospitalBedsByRequestedTime = Math.trunc(availableBeds - severeCasesByRequestedTime);
   const casesForICUByRequestedTime = Math.trunc(
     (5 / 100) * infectionsByRequestedTime
   );
