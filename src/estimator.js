@@ -13,7 +13,7 @@
 } */
 
 const normaliseDurationInputToDays = (timeToElapse, type) => {
-  const input = parseInt(timeToElapse, 10);
+  const input = timeToElapse;
   switch (type) {
     case 'days':
       return input;
